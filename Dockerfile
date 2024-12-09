@@ -1,13 +1,21 @@
-# Use an official OpenJDK 21 runtime as a parent image
-FROM openjdk:21-jdk-slim
-
-# Set the working directory inside the container
+# Build stage
+FROM maven:3.9.4-eclipse-temurin-17 AS build
 WORKDIR /app
 
-# Copy the packaged jar file into the container at /app
-COPY target/demo-0.0.1-SNAPSHOT.jar /app/app.jar
+# Copy the project files into the build container
+COPY . /app
 
-# Expose the port that Spring Boot uses (default 8080)
+# Build the application
+RUN mvn clean package -DskipTests
+
+# Runtime stage
+FROM openjdk:21-jdk-slim
+WORKDIR /app
+
+# Copy the built JAR file from the build stage
+COPY --from=build /app/target/demo-0.0.1-SNAPSHOT.jar /app/app.jar
+
+# Expose the port
 EXPOSE 8080
 
 # Run the application
