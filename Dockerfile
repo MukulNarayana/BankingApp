@@ -1,9 +1,10 @@
 # Build stage
-FROM maven:3.9.4-eclipse-temurin-17 AS build
+FROM maven:3.9.4-eclipse-temurin-21 AS build
 WORKDIR /app
 
-# Copy the project files into the build container
-COPY . /app
+# Copy only necessary files into the build container
+COPY pom.xml /app
+COPY src /app/src
 
 # Build the application
 RUN mvn clean package -DskipTests
