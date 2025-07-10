@@ -6,6 +6,9 @@
     <groupId>com.bankingapp</groupId>
     <artifactId>BankingApp</artifactId>
     <version>1.0.0</version>
+    <packaging>jar</packaging>
+    <name>BankingApp</name>
+    <description>Banking Application using Spring Boot</description>
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
